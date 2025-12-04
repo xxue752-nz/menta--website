@@ -441,29 +441,90 @@ for scalable, privacy-preserving mental health monitoring.
 
       <!-- 3. Results -->
       <section id="results" class="section">
-        <h2>3. Evaluation and Results</h2>
-        <p>
-          We compare Menta against a range of baselines, including zero-shot and few-shot prompting
-          with general-purpose small language models, as well as larger mental-health–tuned LLMs.
-        </p>
-        <ul>
-          <li>
-            Menta consistently outperforms non-fine-tuned small language models on all six tasks,
-            demonstrating the value of dedicated mental-health fine-tuning.
-          </li>
-          <li>
-            On depression and stress prediction, Menta achieves performance that is competitive with
-            or superior to 13B-parameter mental-health–tuned LLMs, despite being substantially smaller.
-          </li>
-          <li>
-            The 4B model is much more suitable for on-device deployment than 13B LLMs in terms of both
-            memory footprint and latency.
-          </li>
-        </ul>
-        <p class="highlight">
-          <img src="5.png" alt="5" style="display:block;width:100%;max-width:850px;margin:20px auto 8px;border-radius:18px;"/>
-        </p>
-      </section>
+  <h2>3. Results</h2>
+
+  <!-- 3.1 Overall Performance vs SLM Baselines -->
+  <h3>3.1 Overall Performance vs Small Language Model Baselines</h3>
+  <p>
+    Figure&nbsp;6 reports accuracy (ACC) and balanced accuracy (BACC) scores for the six mental
+    health tasks, comparing Menta against three strong small language model baselines:
+    Phi-4 Mini, StableLM, and Falcon. Across both ACC and BACC, the red bars corresponding
+    to Menta are consistently the highest or near-highest for all tasks, demonstrating that
+    our mental-health–specific fine-tuning substantially improves predictive performance.
+  </p>
+  <p>
+    On average, Menta achieves a 15.2% improvement over the best-performing
+    non–fine-tuned SLMs across tasks covering depression, stress, and suicidality.
+    Gains are particularly pronounced on more challenging depression-severity and
+    suicide-risk detection tasks, where label imbalance makes balanced accuracy a
+    more informative metric than raw accuracy.
+  </p>
+
+  <!-- Figure 6: bar charts -->
+  <img
+    src="f1.png"
+    alt="ACC and BACC comparison across six tasks for Phi-4 Mini, StableLM, Falcon, and Menta"
+    style="display:block;width:100%;max-width:950px;margin:18px auto;border-radius:16px;"
+  />
+
+  <!-- 3.2 Multi-task vs Single-task Optimization -->
+  <h3>3.2 Multi-task Menta vs Individually Fine-tuned Models</h3>
+  <p>
+    Figure&nbsp;7 compares the general multi-task Menta model with six individually
+    fine-tuned variants (Menta-T1 to Menta-T6), each tailored to a single task.
+    The radar plots show ACC and BACC for all six tasks simultaneously. The red
+    polygon (multi-task Menta) closely tracks or exceeds the per-task polygons in
+    most regions of the radar, indicating that our balanced-accuracy–aware multi-task
+    training can match or surpass specialized single-task fine-tuning.
+  </p>
+  <p>
+    This result suggests that a single, compact SLM can serve as a unified backbone
+    for multiple mental health tasks without sacrificing task-specific performance.
+    In practice, this means that clinicians or developers can deploy one 4B-parameter
+    model instead of maintaining multiple separate models for each condition.
+  </p>
+
+  <!-- Figure 7: radar plots -->
+  <img
+    src="f2.png"
+    alt="Radar plots showing ACC and BACC for multi-task Menta and individually fine-tuned Menta-T1 to Menta-T6 across six tasks"
+    style="display:block;width:100%;max-width:950px;margin:18px auto;border-radius:16px;"
+  />
+
+  <!-- 3.3 Qualitative Case Study -->
+  <h3>3.3 Qualitative Case Study: Depression Severity</h3>
+  <p>
+    To better understand how Menta behaves in real-world settings, Figure&nbsp;10
+    presents a qualitative case study on the depression-severity task. The top row
+    shows a Reddit post describing a sudden, persistent tongue sensation and asking
+    whether anyone has experienced something similar. The lower panels contrast
+    the reasoning and predictions of Menta (left) and Qwen-3 (right).
+  </p>
+  <p>
+    The post is annotated as having <em>minimum</em> depression severity. Menta correctly
+    predicts the lowest severity level and focuses on the symptom being a localized,
+    unusual physical discomfort rather than a typical symptom of depression or anxiety.
+    Its explanation highlights that the user is seeking reassurance and information,
+    but does not express hopelessness, self-blame, or other strong depressive markers.
+  </p>
+  <p>
+    Qwen-3 instead assigns a <em>severe</em> level and over-interprets words related to pain
+    and duration as evidence of intense psychological distress. The color-coded highlights
+    in Figure&nbsp;10 show that Menta attends to phrases indicating physical symptoms and
+    help-seeking behavior, whereas Qwen-3 overweights expressions of discomfort and
+    uncertainty. This case illustrates how Menta’s mental-health–aware fine-tuning
+    leads to more faithful alignment with expert annotations and reduces the risk of
+    overestimating severity.
+  </p>
+
+  <!-- Figure 10: case study figure -->
+  <img
+    src="f3.png"
+    alt="Case study figure comparing Menta and Qwen-3 on a depression-severity example, with color-coded reasoning highlights"
+    style="display:block;width:100%;max-width:950px;margin:18px auto;border-radius:16px;"
+  />
+</section>
+
 
       <!-- Datasets -->
       <section id="datasets" class="section">
