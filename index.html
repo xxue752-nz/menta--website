@@ -312,8 +312,8 @@
 
     <!-- 作者：名字 + * + 上标符号 -->
     <div class="authors">
-      Tianyi Zhang*<sup>†</sup>,
-      Xiangyuan Xue*<sup>§</sup>,
+      Tianyi Zhang<sup>†</sup>*,
+      Xiangyuan Xue<sup>§</sup>*,
       Lingyan Ruan<sup>†</sup>,
       Shiya Fu<sup>†</sup>,
       Feng Xia<sup>‡</sup>,
@@ -608,21 +608,13 @@ for scalable, privacy-preserving mental health monitoring.
           user devices without uploading raw text to remote servers.
         </p>
         <ul>
-          <li>
-            4-bit GGUF quantization to reduce memory footprint while maintaining task performance.
-          </li>
-          <li>
-            Inference via <code>llama.cpp</code> or a similar engine with Metal acceleration on iOS.
-          </li>
-          <li>
-            Demonstrated deployment on an iPhone&nbsp;15 Pro Max with interactive-level latency and
-            moderate memory usage.
-          </li>
-          <li>
-            All processing stays on device, which reduces privacy risks for sensitive mental-health
-            texts.
-          </li>
-        </ul>
+  <li>Four billion parameter small language model with a Qwen style backbone.</li>
+  <li>Six mental health classification tasks collected from expert annotated Reddit data.</li>
+  <li>LoRA based multi task fine tuning for efficient adaptation.</li>
+  <li>Balanced accuracy aware training objective that handles imbalanced labels.</li>
+  <li>Real time on device deployment for privacy preserving mental health screening.</li>
+</ul>
+
         <p class="highlight">
           <div class="device-row">
   <img src="device_demo1.jpg"
